@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,8 +72,8 @@ public class MainActivity extends AppCompatActivity
 
         try
         {
-          //URL urlJson = new URL("http://tv.jt.iq/json.php");
-          URL urlJson=new URL("http://steammania.allalla.com/json.php");
+          URL urlJson = new URL("http://tv.jt.iq/json.php");
+          //URL urlJson=new URL("http://steammania.allalla.com/json.php");
             URLConnection connectionJson = null;
             try
             {
@@ -178,6 +179,11 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        else if (id == R.id.about) {
+            Toast.makeText(getApplicationContext(), "By MortadhaS 2015",
+                    Toast.LENGTH_LONG).show();
             return true;
         }
 
