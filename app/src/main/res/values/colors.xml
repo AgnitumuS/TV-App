@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="card">#dedede</color>
+    <color name="action_bar">#083eba</color>
+    <color name="back_ground">#c6c9c9c9</color>
+    <color name="text_color_card">#333333</color>
+</resources>

@@ -1,0 +1,80 @@
+[
+{
+"channel_name": "beIN HD1",
+"channel_stream": "http://192.168.255.34:1935/live/smil:bein-1.smil/playlist.m3u8",
+"channel_cover": "http://tv.jt.iq/bein1.png",
+"channel_status": ture
+},
+{
+"channel_name": "beIN HD2",
+"channel_stream": "http://192.168.255.34:1935/live/smil:bein-2.smil/playlist.m3u8",
+"channel_cover": "http://tv.jt.iq/bein2.png",
+"channel_status": true
+},
+{
+"channel_name": "beIN HD3",
+"channel_stream": "http://192.168.255.34:1935/live/smil:bein-3.smil/playlist.m3u8",
+"channel_cover": "http://tv.jt.iq/bein3.png",
+"channel_status": true
+},
+{
+"channel_name": "beIN HD4",
+"channel_stream": "http://192.168.255.34:1935/live/smil:bein4.smil/playlist.m3u8",
+"channel_cover": "http://tv.jt.iq/bein4.png",
+"channel_status": true
+},
+{
+"channel_name": "beIN HD5",
+"channel_stream": "http://192.168.255.34:1935/live/smil:bein5.smil/playlist.m3u8",
+"channel_cover": "http://tv.jt.iq/bein5.png",
+"channel_status": true
+},
+{
+"channel_name": "beIN HD6",
+"channel_stream": "http://192.168.255.34:1935/live/smil:bein6.smil/playlist.m3u8",
+"channel_cover": "http://tv.jt.iq/bein6.png",
+"channel_status": true
+},
+{
+"channel_name": "beIN HD9",
+"channel_stream": "http://192.168.255.34:1935/live/smil:bein9.smil/playlist.m3u8",
+"channel_cover": "http://tv.jt.iq/bein9.png",
+"channel_status": true 
+},
+{
+"channel_name": "Animal Planet",
+"channel_stream": "http://192.168.255.34:1935/live/smil:animal-planet.smil/playlist.m3u8",
+"channel_cover": "http://tv.jt.iq/animal-planet-logo.png",
+"channel_status": true 
+},
+{
+"channel_name": "Yahala Shabab",
+"channel_stream": "http://192.168.255.34:1935/live/smil:osn-yahala.smil/playlist.m3u8",
+"channel_cover": "http://tv.jt.iq/osn%20yahala%20shabab%202.png",
+"channel_status": true 
+},
+{
+"channel_name": "NAT Geo",
+"channel_stream": "http://192.168.255.34:1935/live/smil:natgeo.smil/playlist.m3u8",
+"channel_cover": "http://tv.jt.iq/NG-AD.png",
+"channel_status": true 
+},
+{
+"channel_name": "MBC Drama",
+"channel_stream": "http://192.168.255.34:1935/live/smil:mbc-drama.smil/playlist.m3u8",
+"channel_cover": "http://tv.jt.iq/mbc-drama.png",
+"channel_status": true 
+},
+{
+"channel_name": "MBC Bollywood",
+"channel_stream": "http://192.168.255.34:1935/live/smil:mbc-boly.smil/playlist.m3u8",
+"channel_cover": "http://tv.jt.iq/MBC-Bolly.png",
+"channel_status": true 
+},
+{
+"channel_name": "MBC 3",
+"channel_stream": "http://192.168.255.34:1935/live/smil:mbc3.smil/playlist.m3u8",
+"channel_cover": "http://tv.jt.iq/mbc3.png",
+"channel_status": true 
+}
+]

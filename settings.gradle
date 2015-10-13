@@ -1,0 +1,3 @@
+include ':app', ':library', ':demo'
+project(':library').projectDir = new File('ExoPlayer-dev-1.5.0-rc/library')
+project(':demo').projectDir = new File('ExoPlayer-dev-1.5.0-rc/demo')

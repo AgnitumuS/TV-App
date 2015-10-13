@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TV</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">إعدادات</string>
+    <string name="title_activity_show_video">شاهد الفيديو</string>
+    <string name="app_label">تلفزيون الجزيرة</string>
+    <string name="description">البرنامج الخاص بشركة الجزيرة</string>
+    <string name="alert_message">هذه القناة تحت الصيانة حالياً، يرجى المحاولة في وقت لاحق.</string>
+    <string name="alert_message_main">هنالك مشاكل في اتصالك، او انك لست مشترك في شبكة الجزيرة العربية.</string>
+</resources>

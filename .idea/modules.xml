@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TVdev3_d_ExoPlayer.iml" filepath="$PROJECT_DIR$/TVdev3_d_ExoPlayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ExoPlayer-dev-1.5.0-rc/demo/demo.iml" filepath="$PROJECT_DIR$/ExoPlayer-dev-1.5.0-rc/demo/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ExoPlayer-dev-1.5.0-rc/library/library.iml" filepath="$PROJECT_DIR$/ExoPlayer-dev-1.5.0-rc/library/library.iml" />
+    </modules>
+  </component>
+</project>

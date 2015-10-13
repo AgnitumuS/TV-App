@@ -1,0 +1,17 @@
+  [
+    {
+        "channel_name":"beIN HD1",
+        "channel_stream":"http://192.168.255.34:1935/live/smil:bein-1.smil/playlist.m3u8",
+        "channel_cover":"http://tv.jt.iq/bein1.png"
+    },
+    {
+        "channel_name":"beIN HD2",
+        "channel_stream":"http://192.168.255.34:1935/live/smil:bein-2.smil/playlist.m3u8",
+        "channel_cover":"http://tv.jt.iq/bein2.png"
+    },
+    {
+        "channel_name":"beIN HD3",
+        "channel_stream":"http://192.168.255.34:1935/live/smil:bein-3.smil/playlist.m3u8",
+        "channel_cover":"http://tv.jt.iq/bein3.png"
+    }
+] 

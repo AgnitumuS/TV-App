@@ -1,0 +1,22 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+
+
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'com.novoda:bintray-release:0.3.2'
+     //   classpath 'com.android.tools.build:gradle:1.4.0-beta3'
+  // classpath 'com.novoda:bintray-release:0.2.7'
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+
+    }
+}
