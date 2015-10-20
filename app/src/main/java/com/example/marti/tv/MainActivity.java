@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity
     private StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
     private BufferedReader jsonReader;
     private StringBuilder jsonBuilder;
-    private LinearLayoutManager linearLayoutManager;
+    private StaggeredGridLayoutManager staggeredGridLayoutManager;
     private RecyclerView recyclerView;
     private ActionBar actionBar;
 
@@ -67,13 +67,13 @@ public class MainActivity extends AppCompatActivity
         actionBar.setDisplayShowHomeEnabled(true);
 
         recyclerView = (RecyclerView) findViewById(R.id.rv);
-        linearLayoutManager = new LinearLayoutManager(this.getApplicationContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL) ;
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
 
         try
         {
-          URL urlJson = new URL("http://tv.jt.iq/json.php");
-          //URL urlJson=new URL("http://steammania.allalla.com/json.php");
+          //URL urlJson = new URL("http://tv.jt.iq/json.php");
+          URL urlJson=new URL("http://steammania.allalla.com/json.php");
             URLConnection connectionJson = null;
             try
             {
@@ -171,7 +171,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.

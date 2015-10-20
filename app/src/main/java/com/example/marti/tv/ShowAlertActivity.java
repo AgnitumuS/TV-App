@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
 /**
  * Created by MortadhaS on 10/3/2015.
  **/
@@ -48,7 +50,8 @@ public class ShowAlertActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -56,6 +59,11 @@ public class ShowAlertActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        else if (id == R.id.about) {
+            Toast.makeText(getApplicationContext(), "By MortadhaS 2015",
+                    Toast.LENGTH_LONG).show();
             return true;
         }
 
