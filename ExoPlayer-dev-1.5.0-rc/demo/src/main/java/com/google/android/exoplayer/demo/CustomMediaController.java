@@ -3,6 +3,7 @@ package com.google.android.exoplayer.demo;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.Message;
@@ -138,18 +139,21 @@ public class CustomMediaController extends FrameLayout
         }
 
         mFullscreenButton = (ImageButton) v.findViewById(R.id.fullscreen);
-        if (mFullscreenButton != null) {
+        if (mFullscreenButton != null)
+        {
             mFullscreenButton.requestFocus();
             mFullscreenButton.setOnClickListener(mFullscreenListener);
-            Activity host = (Activity) this.getContext();
+            PlayerActivity host = (PlayerActivity) this.getContext();
             // mFullscreenButton.setImageResource(R.drawable.ic_fullscreen_white_48dp);
-            if (host.getRequestedOrientation()==ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-                mFullscreenButton
-                        .setImageResource(R.drawable.ic_fullscreen_exit_white_48dp);
-            } else {
-                mFullscreenButton
-                        .setImageResource(R.drawable.ic_fullscreen_white_48dp);
+            if (host.getResources().getConfiguration().orientation==Configuration.ORIENTATION_LANDSCAPE)
+            {
+                mFullscreenButton.setImageResource(R.drawable.ic_fullscreen_exit_white_48dp);
             }
+            else if(host.getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT)
+            {
+                mFullscreenButton.setImageResource(R.drawable.ic_fullscreen_white_48dp);
+            }
+
         }
 
         mVolumeButton = (ImageButton) v.findViewById(R.id.volume);
@@ -297,6 +301,8 @@ public class CustomMediaController extends FrameLayout
         return false;
     }
 
+
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (mPlayer == null) {
@@ -382,20 +388,22 @@ public class CustomMediaController extends FrameLayout
         }
     }
 
-    public void updateFullScreen() {
-        if (mRoot == null || mFullscreenButton == null || mPlayer == null) {
+    public void updateFullScreen()
+    {
+        if (mRoot == null || mFullscreenButton == null || mPlayer == null)
+        {
             return;
         }
 
-        Activity host = (Activity) this.getContext();
+   /*     Activity host = (Activity) this.getContext();
        // mFullscreenButton.setImageResource(R.drawable.ic_fullscreen_white_48dp);
         if (host.getRequestedOrientation()==ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-            mFullscreenButton
-                    .setImageResource(R.drawable.ic_fullscreen_exit_white_48dp);
-        } else {
-            mFullscreenButton
-                    .setImageResource(R.drawable.ic_fullscreen_white_48dp);
+            mFullscreenButton.setImageResource(R.drawable.ic_fullscreen_exit_white_48dp);
         }
+        else
+        {
+            mFullscreenButton.setImageResource(R.drawable.ic_fullscreen_white_48dp);
+        }*/
     }
 
     private void doPauseResume() {
@@ -416,14 +424,32 @@ public class CustomMediaController extends FrameLayout
         {
             return;
         }
-        Activity host = (Activity) this.getContext();
+        final Activity host = (Activity) this.getContext();
         if(host.getRequestedOrientation()==ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
         {
             host.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    host.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+
+                }
+            }, 2000);
         }
         else
         {
             host.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    host.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+
+                }
+            }, 2000);
 
         }
 
@@ -470,7 +496,6 @@ public class CustomMediaController extends FrameLayout
         disableUnsupportedButtons();
         super.setEnabled(enabled);
     }
-
 
 
 

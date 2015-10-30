@@ -10,4 +10,7 @@
     <string name="title_activity_show_video_exo">ShowVideoExo</string>
     <string name="alert_message">This channel is under maintainence for now, please try again later.</string>
     <string name="alert_message_main">Sorry, You either have problems with your connection, or you are not Al-Jazeera ISP Subscriber</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

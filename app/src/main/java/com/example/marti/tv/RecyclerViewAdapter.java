@@ -24,7 +24,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ImageView channel_cover;
         ImageView channel_status;
 
-        ChannelViewHolder(View itemView) {
+        ChannelViewHolder(View itemView)
+        {
             super(itemView);
             cardView = (CardView)itemView.findViewById(R.id.channel_card);
             cardView.setClickable(true);
@@ -36,8 +37,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     List<Channel> channels;
 
-    RecyclerViewAdapter(List<Channel> channels){
+    RecyclerViewAdapter(List<Channel> channels)
+    {
+
         this.channels = channels;
+
     }
 
     @Override

@@ -1,15 +1,18 @@
 package com.example.marti.tv;
 
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,26 +32,21 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
-import jp.wasabeef.recyclerview.animators.adapters.ScaleInAnimationAdapter;
 /**
  * Created by MortadhaS on 10/3/2015.
  **/
 public class MainActivity extends AppCompatActivity
 {
-//to be used later
-    public static final int TYPE_DASH = 0;
-    public static final int TYPE_SS = 1;
-    public static final int TYPE_HLS = 2;
-    public static final int TYPE_OTHER = 3;
+    public JSONArray jsonArray;
 
     private static Context context;
-
     private StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
     private BufferedReader jsonReader;
     private StringBuilder jsonBuilder;
-    private StaggeredGridLayoutManager staggeredGridLayoutManager;
-    private RecyclerView recyclerView;
     private ActionBar actionBar;
+    private FloatingActionButton fab;//can be used here instead of inside the fragment...
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,20 +58,17 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         context =this.getApplicationContext();
-
         actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.action_bar)));
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setElevation(0);
 
-        recyclerView = (RecyclerView) findViewById(R.id.rv);
-        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL) ;
-        recyclerView.setLayoutManager(staggeredGridLayoutManager);
 
-        try
-        {
-          //URL urlJson = new URL("http://tv.jt.iq/json.php");
-          URL urlJson=new URL("http://steammania.allalla.com/json.php");
+
+        try {
+            //URL urlJson = new URL("http://tv.jt.iq/json.php");
+            URL urlJson = new URL("http://steammania.allalla.com/json2.php");
             URLConnection connectionJson = null;
             try
             {
@@ -98,51 +93,12 @@ public class MainActivity extends AppCompatActivity
             }
 
             JSONTokener tokener = new JSONTokener(jsonBuilder.toString());
-            final JSONArray jsonArray = new JSONArray(tokener);
-            ArrayList<Channel> fields = new ArrayList<Channel>();
-
-            for (int index = 0; index < jsonArray.length(); index++)
-            {
-                final JSONObject jsonObject = jsonArray.getJSONObject(index);
-                fields.add(new Channel(jsonObject.getString("channel_name"), jsonObject.getString("channel_stream"), jsonObject.getString("channel_cover"),jsonObject.getBoolean("channel_status")));
-                RecyclerViewAdapter adapter = new RecyclerViewAdapter(fields);
-                ScaleInAnimationAdapter scaleadapter =new ScaleInAnimationAdapter(adapter);
-                recyclerView.setAdapter(scaleadapter);
-                recyclerView.addOnItemTouchListener(
-                        new RecyclerItemClickListener(this.getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(View view, int position) {
-                                String channel_stream;
-                                String channel_name;
-                                boolean channel_status;
-                                try {
-                                    JSONObject jsonObject = jsonArray.getJSONObject(position);
-                                    Intent intent;
-                                    channel_stream = jsonObject.getString("channel_stream");
-                                    channel_status = jsonObject.getBoolean("channel_status");
-                                    channel_name = jsonObject.getString("channel_name");
-                                    if (channel_status)
-                                    {
-                                        intent = new Intent(MainActivity.this, com.google.android.exoplayer.demo.PlayerActivity.class);
-                                        intent.setData(Uri.parse(channel_stream));
-                                        intent.putExtra("content_type", TYPE_HLS);
-                                        startActivity(intent);
-                                    }
-                                    else
-                                    {
-                                        intent = new Intent(MainActivity.this, ShowAlertActivity.class);
-                                        intent.putExtra("Type", 0);//if == 0 show channel is down message
-                                        intent.putExtra("channel_name", channel_name);
-                                        startActivity(intent);
-                                    }
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        })
-                );
-            }
+            jsonArray = new JSONArray(tokener);
+            viewPager = (ViewPager) findViewById(R.id.viewpager);
+            viewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(), MainActivity.this));
+            tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+            tabLayout.setupWithViewPager(viewPager);
+            tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#de156f"));
         }
         catch(Exception e)
         {
@@ -160,6 +116,7 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
+
     }
 
 
@@ -183,8 +140,7 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         else if (id == R.id.about) {
-            Toast.makeText(getApplicationContext(), "By MortadhaS 2015",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "By MurtadhaS 2015", Toast.LENGTH_LONG).show();
             return true;
         }
 
@@ -193,5 +149,99 @@ public class MainActivity extends AppCompatActivity
     public static Context getContext()
     {
         return context;
+    }
+
+
+
+    public class MainFragmentPagerAdapter extends FragmentPagerAdapter
+    {
+
+        //final int PAGE_COUNT =5;
+        //private String tabTitles[] = new String[] { "All", "Sports", "Movies" ,"News & Culture","Other"};
+        ArrayList<String> genres;
+
+        {
+            try
+            {
+                genres = getDistinctJsonArray(jsonArray);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        final int PAGE_COUNT=genres.size();
+        private ArrayList<String> tabTitles=genres;
+        private Context context;
+
+        public MainFragmentPagerAdapter(FragmentManager fm, Context context)
+        {
+          //  jsonArray.
+            super(fm);
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return PAGE_COUNT;
+        }
+
+        @Override
+        public Fragment getItem(int position)
+        {
+            return MainFragment.newInstance(position + 1);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position)
+        {
+            // Generate title based on item position
+            return tabTitles.get(position);
+        }
+
+
+
+
+    }
+
+//get the tabs genres from json file
+    public ArrayList<String> getDistinctJsonArray(JSONArray jsonArray) throws JSONException {
+        ArrayList<String> genres = new ArrayList<String>();
+        genres.add("All");
+        JSONObject tempJsonObject;
+        for(int position=0;position<jsonArray.length();position++)
+        {
+            tempJsonObject=jsonArray.getJSONObject(position);
+            if(!genres.contains(tempJsonObject.getString("channel_type")))
+                genres.add(tempJsonObject.getString("channel_type"));
+        }
+
+return genres;
+    }
+
+
+    public JSONArray getJsonArray(int mPage)
+    {
+        JSONArray tempJsonArray=new JSONArray();
+        JSONObject jsonObject;
+        String pageTitle=(String)viewPager.getAdapter().getPageTitle(mPage-1);
+
+
+        if(pageTitle.equals("All"))return jsonArray;
+        for(int number=0;number<jsonArray.length();number++)
+        {
+            try
+            {
+                jsonObject=jsonArray.getJSONObject(number);
+                if (jsonObject.getString("channel_type").equals(pageTitle))
+                    tempJsonArray.put(jsonObject);
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+
+        }
+        return tempJsonArray;
     }
 }

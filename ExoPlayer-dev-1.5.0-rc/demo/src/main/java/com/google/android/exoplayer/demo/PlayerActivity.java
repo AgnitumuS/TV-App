@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -59,6 +60,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 /**
  * Modified by MortadhaS on 10/3/2015.
@@ -117,6 +119,7 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
 
   private Uri contentUri;
   private int contentType;
+  private String contentSource;
   private String contentId;
 
   private AudioCapabilitiesReceiver audioCapabilitiesReceiver;
@@ -130,9 +133,14 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
     Intent intent = getIntent();
     contentUri = intent.getData();
     contentType = intent.getIntExtra(CONTENT_TYPE_EXTRA, -1);
+    contentSource=intent.getStringExtra("content_source");
 
     //contentId = intent.getStringExtra(CONTENT_ID_EXTRA);
     //contentId = intent.getStringExtra("status");
+
+
+
+
 
     setContentView(R.layout.player_activity);
     window=getWindow();
@@ -168,6 +176,23 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
 
     videoFrame = (AspectRatioFrameLayout) findViewById(R.id.video_frame);
     surfaceView = (SurfaceView) findViewById(R.id.surface_view);
+/*
+    new ShowcaseView.Builder(this)
+            .setTarget(new ViewTarget(surfaceView))
+            .setContentTitle("This channel is from an outside stream")
+            .setContentText("You can press this to refresh the channels list.")
+            .hideOnTouchOutside()
+            .build()
+            .hideButton();
+*/
+    if(contentSource.equals("other"))
+    {
+      new SweetAlertDialog(this)
+            .setTitleText("Notification")
+            .setContentText("Please notice that this channel is not streaming from Al-Jazeera ISP.")
+            .show();
+    }
+
     surfaceView.getHolder().addCallback(this);
     debugTextView = (TextView) findViewById(R.id.debug_text_view);
 
@@ -191,6 +216,19 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
 
     audioCapabilitiesReceiver = new AudioCapabilitiesReceiver(this, this);
     audioCapabilitiesReceiver.register();
+
+  }
+
+  @Override
+  public void onConfigurationChanged(Configuration newConfig)
+  {
+    ImageButton fullScreenButton;
+    super.onConfigurationChanged(newConfig);
+    fullScreenButton=(ImageButton)mediaController.findViewById(R.id.fullscreen);
+    if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE)
+      fullScreenButton.setImageResource(R.drawable.ic_fullscreen_exit_white_48dp);
+    else if(newConfig.orientation==Configuration.ORIENTATION_PORTRAIT)
+      fullScreenButton.setImageResource(R.drawable.ic_fullscreen_white_48dp);
 
   }
 
@@ -314,7 +352,8 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
   // DemoPlayer.Listener implementation
 
   @Override
-  public void onStateChanged(boolean playWhenReady, int playbackState) {
+  public void onStateChanged(boolean playWhenReady, int playbackState)
+  {
     if (playbackState == ExoPlayer.STATE_ENDED) {
       showControls();
     }

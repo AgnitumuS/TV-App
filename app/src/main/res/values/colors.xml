@@ -5,4 +5,7 @@
     <color name="back_ground">#c6c9c9c9</color>
     <color name="text_color_card">#333333</color>
     <color name="text_color_status">#555555</color>
+    <color name="primary">#ff0011</color>
+    <color name="primary_pressed">#de156f</color>
+    <color name="ripple">#de156f</color>
 </resources>

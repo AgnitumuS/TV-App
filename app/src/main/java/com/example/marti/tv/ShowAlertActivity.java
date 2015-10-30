@@ -62,7 +62,7 @@ public class ShowAlertActivity extends AppCompatActivity {
             return true;
         }
         else if (id == R.id.about) {
-            Toast.makeText(getApplicationContext(), "By MortadhaS 2015",
+            Toast.makeText(getApplicationContext(), "By MurtadhaS 2015",
                     Toast.LENGTH_LONG).show();
             return true;
         }
