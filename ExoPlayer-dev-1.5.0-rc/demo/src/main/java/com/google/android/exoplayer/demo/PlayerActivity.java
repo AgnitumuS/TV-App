@@ -176,22 +176,7 @@ public class PlayerActivity extends Activity implements SurfaceHolder.Callback, 
 
     videoFrame = (AspectRatioFrameLayout) findViewById(R.id.video_frame);
     surfaceView = (SurfaceView) findViewById(R.id.surface_view);
-/*
-    new ShowcaseView.Builder(this)
-            .setTarget(new ViewTarget(surfaceView))
-            .setContentTitle("This channel is from an outside stream")
-            .setContentText("You can press this to refresh the channels list.")
-            .hideOnTouchOutside()
-            .build()
-            .hideButton();
-*/
-    if(contentSource.equals("other"))
-    {
-      new SweetAlertDialog(this)
-            .setTitleText("Notification")
-            .setContentText("Please notice that this channel is not streaming from Al-Jazeera ISP.")
-            .show();
-    }
+
 
     surfaceView.getHolder().addCallback(this);
     debugTextView = (TextView) findViewById(R.id.debug_text_view);
