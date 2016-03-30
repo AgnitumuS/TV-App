@@ -4,8 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_show_video">ShowVideo</string>
-    <string name="app_label">Al-Jazeera TV</string>
-    <string name="description">Al-Jazeera TV</string>
+    <string name="app_label">A7la TV</string>
+    <string name="description">A7la TV</string>
     <string name="title_activity_show_video_activity_exo">ShowVideoActivityExo</string>
     <string name="title_activity_show_video_exo">ShowVideoExo</string>
     <string name="alert_message">This channel is under maintainence for now, please try again later.</string>
