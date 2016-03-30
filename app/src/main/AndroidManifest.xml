@@ -10,7 +10,7 @@
 
         android:allowBackup="true"
         android:configChanges="locale|orientation"
-        android:icon="@mipmap/ic_launcher_jazeera"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:launchMode="singleTask"
